@@ -4,8 +4,6 @@
     {
         static void Main()
         {
-            int[] DENOMINATIONS = { 10000, 5000, 2000, 1000, 500, 200, 100, 25, 10, 5 };
-            string[] DENOMINATION_NAMES = { "100$", "50$", "20$", "10$", "5$", "2$", "1$", "0.25$", "0.10$", "0.05$" };
             bool quit = false;
 
             while (!quit)
@@ -38,35 +36,35 @@
 
                     else
                     {
-                        Console.WriteLine("\nError. The value entered is not valid.\n");
+                        Console.WriteLine("\nError: invalid value.\n");
                     }
                 }
             }
 
             void CalculateThenGet(double totalAmount)
             {
-                int[] money = new int[DENOMINATIONS.Length];
+                int[] DENOMINATIONS_IN_CENTS = { 10000, 5000, 2000, 1000, 500, 200, 100, 25, 10, 5 };
+                string[] DENOMINATION_NAMES = { "100$", "50$", "20$", "10$", "5$", "2$", "1$", "0.25$", "0.10$", "0.05$" };
                 int amountInCents = (int) (Math.Round(totalAmount * 20) / 20 * 100);
 
                 if (amountInCents == 0)
                 {
-                    Console.WriteLine("\nThe given amount of money rounds to 0$.\n");
+                    Console.WriteLine("\nThe given amount of money rounds to 0$.");
 
                     return;
                 }
 
-                Console.WriteLine($"\nTo dispense the smallest number of denominations from {totalAmount.ToString("0.00")}$, rounded to the nearest 5 cents, we must decompose " +
-                                  $"the total amount of money as follows:");
+                Console.WriteLine($"\nThe given amount of money can be decomposed as follows:");
 
-                for (int counter = 0; counter < DENOMINATIONS.Length; counter++)
+                for (int counter = 0; counter < DENOMINATIONS_IN_CENTS.Length; counter++)
                 {
-                    int count = (int) (amountInCents / DENOMINATIONS[counter]);
+                    int denominationsCount = (int) (amountInCents / DENOMINATIONS_IN_CENTS[counter]);
 
-                    if (count > 0)
+                    if (denominationsCount > 0)
                     {
-                        Console.WriteLine($"{count} * {DENOMINATION_NAMES[counter]}");
+                        Console.WriteLine($"{denominationsCount} X {DENOMINATION_NAMES[counter]}");
 
-                        amountInCents -= count * DENOMINATIONS[counter];
+                        amountInCents -= denominationsCount * DENOMINATIONS_IN_CENTS[counter];
                     }
                 }
             }
